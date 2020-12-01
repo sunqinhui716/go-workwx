@@ -559,3 +559,32 @@ func (x reqExternalContactMarkTag) intoBody() ([]byte, error) {
 type respExternalContactMarkTag struct {
 	respCommon
 }
+
+// +----------------------------------------------------------------------
+// | 标签管理
+// +----------------------------------------------------------------------
+
+// reqTag 添加标签请求
+type reqTag struct {
+	Tag
+}
+
+var _ bodyer = reqTag{}
+
+func (x reqTag) intoBody() ([]byte, error) {
+	result, err := json.Marshal(x.Tag)
+	if err != nil {
+		// should never happen unless OOM or similar bad things
+		// TODO: error_chain
+		return nil, err
+	}
+
+	return result, nil
+}
+
+// respTag 添加标签响应
+type respTag struct {
+	respCommon
+	// 标签组列表
+	TagID int `json:"tagid"`
+}

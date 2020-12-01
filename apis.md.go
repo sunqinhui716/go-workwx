@@ -309,3 +309,21 @@ func (c *WorkwxApp) execMediaUploadImg(req reqMediaUploadImg) (respMediaUploadIm
 
 	return resp, nil
 }
+
+// +----------------------------------------------------------------------
+// | 标签管理
+// +----------------------------------------------------------------------
+
+// execTag 创建标签
+func (c *WorkwxApp) execTag(req reqTag) (respTag, error) {
+	var resp respTag
+	err := c.executeQyapiJSONPost("/cgi-bin/tag/create", req, &resp, true)
+	if err != nil {
+		return respTag{}, err
+	}
+	if bizErr := resp.TryIntoErr(); bizErr != nil {
+		return respTag{}, bizErr
+	}
+
+	return resp, nil
+}
