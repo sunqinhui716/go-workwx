@@ -588,3 +588,29 @@ type respTag struct {
 	// 标签组列表
 	TagID int `json:"tagid"`
 }
+
+// reqEditTag 编辑标签请求
+type reqEditTag struct {
+	// tagname 标签名称
+	TagName string `json:"tagname"`
+	// tagid 标签id
+	TagID int `json:"tagid"`
+}
+
+var _ bodyer = reqEditTag{}
+
+func (x reqEditTag) intoBody() ([]byte, error) {
+	result, err := json.Marshal(x)
+	if err != nil {
+		// should never happen unless OOM or similar bad things
+		// TODO: error_chain
+		return nil, err
+	}
+
+	return result, nil
+}
+
+// respEditTag 编辑标签响应
+type respEditTag struct {
+	respCommon
+}
