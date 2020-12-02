@@ -11,3 +11,11 @@ func (c *WorkwxApp) AddTag(req Tag) (int, error) {
 	return resp.TagID, nil
 }
 
+// UpdateTag 编辑标签
+func (c *WorkwxApp) UpdateTag(req Tag) error {
+	_, err := c.execEditTag(reqEditTag{
+		TagName: req.TagName,
+		TagID:   req.TagID,
+	})
+	return err
+}

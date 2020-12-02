@@ -327,3 +327,17 @@ func (c *WorkwxApp) execTag(req reqTag) (respTag, error) {
 
 	return resp, nil
 }
+
+// execEditTag 编辑标签
+func (c *WorkwxApp) execEditTag(req reqEditTag) (respEditTag, error) {
+	var resp respEditTag
+	err := c.executeQyapiJSONPost("/cgi-bin/tag/update", req, &resp, true)
+	if err != nil {
+		return respEditTag{}, err
+	}
+	if bizErr := resp.TryIntoErr(); bizErr != nil {
+		return respEditTag{}, bizErr
+	}
+
+	return resp, nil
+}
