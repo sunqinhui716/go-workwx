@@ -614,3 +614,21 @@ func (x reqEditTag) intoBody() ([]byte, error) {
 type respEditTag struct {
 	respCommon
 }
+
+// reqDelTag 删除标签请求
+type reqDelTag struct {
+	TagID string
+}
+
+var _ urlValuer = reqDelTag{}
+
+func (x reqDelTag) intoURLValues() url.Values {
+	return url.Values{
+		"tagid": {x.TagID},
+	}
+}
+
+// respDelTag 删除标签响应
+type respDelTag struct {
+	respCommon
+}

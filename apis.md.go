@@ -341,3 +341,17 @@ func (c *WorkwxApp) execEditTag(req reqEditTag) (respEditTag, error) {
 
 	return resp, nil
 }
+
+// execDelTag 删除标签
+func (c *WorkwxApp) execDelTag(req reqDelTag) (respDelTag, error) {
+	var resp respDelTag
+	err := c.executeQyapiGet("/cgi-bin/tag/delete", req, &resp, true)
+	if err != nil {
+		return respDelTag{}, err
+	}
+	if bizErr := resp.TryIntoErr(); bizErr != nil {
+		return respDelTag{}, bizErr
+	}
+
+	return resp, nil
+}
