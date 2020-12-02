@@ -19,3 +19,11 @@ func (c *WorkwxApp) UpdateTag(req Tag) error {
 	})
 	return err
 }
+
+// DelTag 删除标签
+func (c *WorkwxApp) DelTag(tagID string) error {
+	_, err := c.execDelTag(reqDelTag{
+		TagID: tagID,
+	})
+	return err
+}
